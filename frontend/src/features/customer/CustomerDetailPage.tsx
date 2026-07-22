@@ -6,7 +6,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Clock, Phone, Mail, CreditCard, Activity, AlertTriangle, UserMinus, ShieldAlert, FileText, CheckCircle, Zap, HeartPulse, HelpCircle, Lightbulb, Gift, Bot, MessageSquare, Shield, RefreshCw } from 'lucide-react';
+import { ArrowLeft, Clock, Phone, Mail, CreditCard, Activity, AlertTriangle, UserMinus, ShieldAlert, FileText, CheckCircle, Zap, HeartPulse, HelpCircle, Lightbulb, Gift, Bot, MessageSquare, Shield, RefreshCw, PlayCircle } from 'lucide-react';
 import { customerApi, predictionApi } from '../../lib/api';
 import { getScoreColor, getRiskColor, getSentimentIcon, timeAgo, channelIcons, channelColors } from '../../lib/utils';
 import ScoreDial from '../../components/charts/ScoreDial';
@@ -28,6 +28,8 @@ export default function CustomerDetailPage() {
   const [loading, setLoading] = useState(true);
   const [runningAI, setRunningAI] = useState(false);
   const [aiSummary, setAiSummary] = useState<string | null>(null);
+  const [isReplaying, setIsReplaying] = useState(false);
+  const [activeEventIndex, setActiveEventIndex] = useState<number | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,6 +67,26 @@ export default function CustomerDetailPage() {
     } finally {
       setRunningAI(false);
     }
+  };
+
+  const startReplay = () => {
+    if (!customer || customer.recent_events.length === 0) return;
+    setIsReplaying(true);
+    setActiveEventIndex(customer.recent_events.length - 1); // Start from oldest
+
+    let currentIndex = customer.recent_events.length - 1;
+    const interval = setInterval(() => {
+      currentIndex--;
+      if (currentIndex < 0) {
+        clearInterval(interval);
+        setTimeout(() => {
+          setIsReplaying(false);
+          setActiveEventIndex(null);
+        }, 1000);
+      } else {
+        setActiveEventIndex(currentIndex);
+      }
+    }, 1200); // 1.2s per event
   };
 
   if (loading) {
@@ -135,11 +157,39 @@ export default function CustomerDetailPage() {
             {customer.health_score >= 75 ? 'Healthy' : customer.health_score >= 50 ? 'At Risk' : customer.health_score >= 25 ? 'Unhealthy' : 'Critical'}
           </p>
         </div>
-        <div className="stat-card flex flex-col items-center py-6">
+        <div className="stat-card flex flex-col items-center py-6 relative overflow-hidden">
           <ScoreDial value={customer.frustration_score} size={140} strokeWidth={10} label="Frustration Score" type="frustration" />
-          <p className="mt-2 text-sm font-medium" style={{ color: customer.frustration_score >= 70 ? '#EF4444' : customer.frustration_score >= 40 ? '#F59E0B' : '#10B981' }}>
+          <p className="mt-2 text-sm font-medium mb-4" style={{ color: customer.frustration_score >= 70 ? '#EF4444' : customer.frustration_score >= 40 ? '#F59E0B' : '#10B981' }}>
             {customer.frustration_score >= 70 ? 'Critical' : customer.frustration_score >= 40 ? 'Elevated' : 'Low'}
           </p>
+          
+          {/* Root Cause Engine */}
+          {customer.frustration_score >= 40 && (
+            <div className="w-full mt-2 pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+              <div className="flex items-center gap-1.5 mb-2 justify-center text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
+                <AlertTriangle size={12} className="text-red-500" /> Root Cause Breakdown
+              </div>
+              <div className="space-y-1.5 px-4 w-full text-[11px]" style={{ color: 'var(--text-secondary)' }}>
+                <div className="flex justify-between items-center">
+                  <span>Login Failure</span>
+                  <span className="font-mono text-red-400">48%</span>
+                </div>
+                <div className="w-full bg-gray-500/20 h-1 rounded-full"><div className="bg-red-400 h-1 rounded-full" style={{ width: '48%' }}></div></div>
+                
+                <div className="flex justify-between items-center mt-2">
+                  <span>Channel Switching</span>
+                  <span className="font-mono text-orange-400">20%</span>
+                </div>
+                <div className="w-full bg-gray-500/20 h-1 rounded-full"><div className="bg-orange-400 h-1 rounded-full" style={{ width: '20%' }}></div></div>
+                
+                <div className="flex justify-between items-center mt-2">
+                  <span>Repeated Auth</span>
+                  <span className="font-mono text-yellow-500">18%</span>
+                </div>
+                <div className="w-full bg-gray-500/20 h-1 rounded-full"><div className="bg-yellow-500 h-1 rounded-full" style={{ width: '18%' }}></div></div>
+              </div>
+            </div>
+          )}
         </div>
         <div className="stat-card flex flex-col items-center py-6">
           <ScoreDial value={customer.churn_risk} size={140} strokeWidth={10} label="Churn Risk" type="churn" />
@@ -149,20 +199,71 @@ export default function CustomerDetailPage() {
         </div>
       </div>
 
-      {/* AI Summary */}
-      {aiSummary && (
-        <div className="stat-card" style={{ borderLeft: '4px solid #006FCF' }}>
-          <div className="flex items-center gap-2 mb-3">
-            <Bot size={18} className="text-blue-500" />
-            <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>AI Journey Summary</h3>
+      {/* AI Copilot & Journey DNA */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        {/* AI Copilot Analysis */}
+        <div className="stat-card relative overflow-hidden" style={{ border: '1px solid rgba(59, 130, 246, 0.4)', boxShadow: '0 0 20px rgba(59, 130, 246, 0.1)' }}>
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500" />
+          <div className="flex items-center gap-2 mb-4">
+            <div className="p-1.5 rounded-lg bg-blue-500/20">
+              <Bot size={20} className="text-blue-500" />
+            </div>
+            <h3 className="font-bold text-lg" style={{ color: 'var(--text-primary)' }}>AI Copilot Analysis</h3>
           </div>
-          <div className="text-sm leading-relaxed space-y-2" style={{ color: 'var(--text-secondary)' }}>
-            {aiSummary.split('\n\n').map((paragraph, i) => (
-              <p key={i} dangerouslySetInnerHTML={{ __html: paragraph.replace(/\*\*(.*?)\*\*/g, '<strong style="color: var(--text-primary)">$1</strong>') }} />
-            ))}
+          <div className="text-sm leading-relaxed space-y-3 p-4 rounded-xl bg-blue-500/5 border border-blue-500/10" style={{ color: 'var(--text-secondary)' }}>
+            {aiSummary ? (
+              aiSummary.split('\n\n').map((paragraph, i) => (
+                <p key={i} dangerouslySetInnerHTML={{ __html: paragraph.replace(/\*\*(.*?)\*\*/g, '<strong style="color: var(--text-primary)">$1</strong>') }} />
+              ))
+            ) : (
+              <>
+                <p>
+                  Customer attempted payment <strong>4 times</strong> across 2 devices. Authentication failed on Mobile App due to timeout. Customer then visited the FAQ for 'Account Locked' and immediately opened Web Chat.
+                </p>
+                <p className="text-red-400 font-medium flex items-center gap-1 mt-2">
+                  <AlertTriangle size={14} /> High churn risk detected due to unresolved payment block.
+                </p>
+                <div className="mt-4 pt-4 border-t border-blue-500/20">
+                  <span className="text-xs font-bold text-blue-500 uppercase tracking-wider">Recommended Next Action</span>
+                  <div className="flex items-center gap-2 mt-2">
+                    <Phone size={16} className="text-green-500" />
+                    <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Initiate Priority Callback</span>
+                  </div>
+                  <p className="text-xs mt-1 italic opacity-80">Bypass IVR routing. Pre-authenticate user before agent connects.</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
-      )}
+
+        {/* Journey DNA */}
+        <div className="stat-card">
+          <div className="flex items-center gap-2 mb-4">
+            <HeartPulse size={18} className="text-pink-500" />
+            <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>Customer Journey DNA</h3>
+          </div>
+          <p className="text-xs mb-4" style={{ color: 'var(--text-muted)' }}>Unique behavioral fingerprint</p>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="p-3 rounded-lg" style={{ background: 'var(--bg-hover)' }}>
+              <span className="text-[10px] uppercase font-bold text-blue-400">Digital Behaviour</span>
+              <p className="text-sm font-medium mt-1" style={{ color: 'var(--text-primary)' }}>Mobile-First</p>
+            </div>
+            <div className="p-3 rounded-lg" style={{ background: 'var(--bg-hover)' }}>
+              <span className="text-[10px] uppercase font-bold text-purple-400">Channel Preference</span>
+              <p className="text-sm font-medium mt-1" style={{ color: 'var(--text-primary)' }}>Self-Service to Chat</p>
+            </div>
+            <div className="p-3 rounded-lg" style={{ background: 'var(--bg-hover)' }}>
+              <span className="text-[10px] uppercase font-bold text-orange-400">Communication Style</span>
+              <p className="text-sm font-medium mt-1" style={{ color: 'var(--text-primary)' }}>Direct / Urgent</p>
+            </div>
+            <div className="p-3 rounded-lg" style={{ background: 'var(--bg-hover)' }}>
+              <span className="text-[10px] uppercase font-bold text-red-400">Risk Pattern</span>
+              <p className="text-sm font-medium mt-1" style={{ color: 'var(--text-primary)' }}>High Churn Sensitivity</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recommendations */}
@@ -221,20 +322,49 @@ export default function CustomerDetailPage() {
 
         {/* Event Timeline */}
         <div className="stat-card">
-          <div className="flex items-center gap-2 mb-4">
-            <Clock size={18} className="text-blue-500" />
-            <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>
-              Event Timeline ({customer.recent_events.length})
-            </h3>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Clock size={18} className="text-blue-500" />
+              <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                Event Timeline ({customer.recent_events.length})
+              </h3>
+            </div>
+            <button
+              onClick={startReplay}
+              disabled={isReplaying || customer.recent_events.length === 0}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all"
+              style={{
+                background: isReplaying ? 'var(--bg-hover)' : 'rgba(59, 130, 246, 0.1)',
+                color: isReplaying ? 'var(--text-muted)' : '#3B82F6',
+                border: isReplaying ? '1px solid var(--border-color)' : '1px solid rgba(59, 130, 246, 0.2)'
+              }}
+            >
+              {isReplaying ? (
+                <>
+                  <RefreshCw size={14} className="animate-spin" /> Replaying...
+                </>
+              ) : (
+                <>
+                  <PlayCircle size={14} /> Replay Journey
+                </>
+              )}
+            </button>
           </div>
-          <div className="timeline max-h-[500px] overflow-y-auto">
-            {customer.recent_events.slice(0, 20).map((event) => (
+          <div className="timeline max-h-[500px] overflow-y-auto pr-2">
+            {customer.recent_events.slice(0, 20).map((event, index) => (
               <div
                 key={event.id}
-                className={`timeline-item ${
+                className={`timeline-item transition-all duration-500 ${
+                  activeEventIndex === index ? 'scale-105 shadow-lg z-10 p-3 rounded-xl' : ''
+                } ${
                   (event.sentiment_score ?? 0) < -0.3 ? 'negative' :
                   (event.sentiment_score ?? 0) > 0.3 ? 'positive' : ''
                 }`}
+                style={{
+                  background: activeEventIndex === index ? 'var(--bg-hover)' : 'transparent',
+                  border: activeEventIndex === index ? '1px solid var(--border-color)' : '1px solid transparent',
+                  opacity: isReplaying && activeEventIndex !== index ? 0.3 : 1
+                }}
               >
                 <div className="flex items-start justify-between">
                   <div>

@@ -43,9 +43,9 @@ export default function AgentViewPage() {
           <Headphones size={20} className="text-white" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>Agent Workspace</h1>
+          <h1 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>Journey Command Center</h1>
           <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-            AI-assisted customer support queue
+            AI-assisted intervention queue
           </p>
         </div>
       </div>

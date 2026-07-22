@@ -3,8 +3,8 @@
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/fastapi/fastapi-original.svg" width="50" alt="FastAPI" />
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" width="50" alt="Python" />
   
-  <h1>🔵 AmEx Pulse ⚡</h1>
-  <p><b>AI-Powered Cross-Channel Customer Journey Intelligence Platform</b></p>
+  <h1>🔵 AmEx Pulse AI ⚡</h1>
+  <p><b>Predict • Understand • Act</b></p>
   <p><i>American Express CodeStreet Hackathon 2026</i></p>
 
   [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -15,38 +15,74 @@
 
 <br />
 
+> **"Our platform automatically detects where a customer's journey breaks and recommends the exact next action before the customer even contacts support."**
 
+## 🎥 Live Demonstration
 
-## 🎯 The Problem
+Here is an automated recording of the AmEx Pulse AI platform in action (Dashboard, Customers, Journeys, Analytics, Command Center):
 
-Financial organizations currently process customer interactions across highly fragmented silos:
-- **Mobile App & Web Site:** Handled by digital product teams.
-- **Call Centers & IVR:** Handled by support ops.
-- **Branches & Emails:** Handled by local reps and marketing.
-- **Chatbots & CRM:** Handled by distinct automated flows.
-
-Every department only sees a **fraction of the customer journey**. 
-
-This fragmentation creates:
-1. **Poor Customer Experience:** Customers repeat themselves endlessly across channels.
-2. **High Operational Costs:** Repeat calls for the same unsolved issues.
-3. **Missed Opportunities:** Inability to predict Next Best Actions (NBA) effectively.
-4. **Unseen Churn Risks:** Silent frustration builds up across disjointed touchpoints before an account is suddenly closed.
+![AmEx Pulse AI Demo](docs/ui_walkthrough.webp)
 
 ---
 
-## 💡 The AmEx Pulse Solution
+## 🖼️ Key Interfaces
 
-**AmEx Pulse** transforms disconnected touchpoints into a **Unified Intelligent Journey Graph**. Instead of merely logging flat events, the platform stitches cross-channel activities and evaluates them in real-time using a **6-Engine AI Pipeline**.
+AmEx Pulse AI features a stunning, enterprise-grade user interface designed for maximum readability and zero friction.
+
+### 1. Executive Dashboard
+The Global Dashboard gives executives an instant pulse on the health of American Express customer journeys. It aggregates the 6-Engine AI Pipeline's outputs into real-time metrics, highlighting active churn risks and system-wide frustration levels.
+![Executive Dashboard](docs/dashboard.png)
+
+### 2. Customer Profile & Journey DNA
+The 360° Customer Profile is the core of our platform. It replaces generic event logs with a **Customer Journey DNA** fingerprint. Our embedded **AI Copilot** instantly analyzes complex multi-channel failures and provides agents with a natural-language summary and a precise Recommended Next Action.
+![Customer Profile](docs/customer_profile.png)
+
+### 3. Journey Command Center
+Designed for frontline support agents, the Journey Command Center prioritizes incoming tickets based entirely on AI-calculated Frustration and Churn Risk scores, rather than just chronological order.
+![Journey Command Center](docs/agent_view.png)
+
+### 4. Journey Analytics
+Deep dive into cross-channel funnels to identify exactly where customers are dropping off. The GitHub-style **Frustration Heatmap** instantly visualizes the most painful days and hours for customer interactions, allowing product teams to rapidly identify widespread outages.
+![Journey Analytics](docs/analytics.png)
+
+### 5. Cross-Channel Journey Explorer
+A powerful graph visualization that tracks individual customer intents (like "Card Activation" or "Dispute Charge") across their entire lifecycle, stitching together seemingly unrelated touchpoints across mobile, web, and IVR.
+![Journey Explorer](docs/journeys.png)
+
+### 6. Customer Directory
+A comprehensive, AI-sorted index of the American Express customer base, allowing managers to filter directly by at-risk cohorts or specific unresolved intents.
+![Customer Directory](docs/customers.png)
+
+---
+
+## 💼 Business Value First
+
+AmEx Pulse AI is designed to drive massive operational savings and preserve customer loyalty through predictive intervention. Our core target metrics for this prototype are:
+
+1. 💰 **Support Cost Reduced:** **30% fewer repeat support calls** by identifying the root cause of cross-channel frustration.
+2. ⚡ **Resolution Time Improved:** **25% faster issue resolution** powered by our AI Copilot giving agents the exact context immediately.
+3. 🛡️ **Customer Retained:** **20% reduction in churn** among high-risk journeys by intervening before the customer closes their account.
+4. 📈 **Money Saved:** **40% quicker identification** of broken digital funnels (e.g., activation drops) using our real-time Journey Analytics.
+
+---
+
+## 🎯 The Problem
+
+Financial organizations process customer interactions across highly fragmented silos (Mobile App, Call Centers, Branches, Chatbots). Every department only sees a **fraction of the customer journey**. 
+
+This fragmentation causes silent frustration to build up across disjointed touchpoints, driving up operational call costs and drastically increasing invisible churn risks.
+
+---
+
+## 💡 The AmEx Pulse AI Solution
+
+**AmEx Pulse AI** transforms disconnected touchpoints into a **Unified Intelligent Journey Graph**. Instead of merely logging flat events, the platform generates a unique **Journey DNA** for every user and evaluates their real-time activity using a **6-Engine AI Pipeline**.
 
 It predicts:
-- **Customer Intent:** What are they trying to do?
-- **Frustration:** Are they struggling?
-- **Health:** Is this customer thriving or failing?
-- **Churn Risk:** Are they about to leave American Express?
-- **Next Best Action (NBA):** What exactly should the agent or automated system do right now to help them?
+- **Root Cause of Frustration:** Exactly why the user is struggling.
+- **Next Best Action (NBA):** What the agent or automated system must do right now.
 
-All of this intelligence is piped via WebSockets to a premium, enterprise-grade React dashboard designed for Support Agents, Managers, and Analysts.
+All of this intelligence is piped via WebSockets to our premium **Journey Command Center** designed for Support Agents and Managers.
 
 ---
 

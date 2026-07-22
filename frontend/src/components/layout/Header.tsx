@@ -19,7 +19,7 @@ export default function Header({ user, onLogout }: HeaderProps) {
     { to: '/customers', icon: Users, label: 'Customers' },
     { to: '/journeys', icon: Map, label: 'Journeys' },
     { to: '/analytics', icon: Activity, label: 'Analytics' },
-    { to: '/agent', icon: Headphones, label: 'Agent View' },
+    { to: '/agent', icon: Headphones, label: 'Command Center' },
   ];
 
   return (
@@ -28,7 +28,7 @@ export default function Header({ user, onLogout }: HeaderProps) {
         {/* Brand */}
         <div className="header-brand">
           <div className="header-logo" />
-          <h2 className="header-title">AmEx Pulse</h2>
+          <h2 className="header-title">AmEx Pulse <span style={{ color: 'var(--brand-blue)', fontWeight: 800 }}>AI</span></h2>
         </div>
 
         {/* Navigation */}
