@@ -1,0 +1,36 @@
+# ===== Core Framework =====
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+pydantic-settings
+
+# ===== Database =====
+sqlalchemy
+asyncpg
+alembic
+aiosqlite
+
+# ===== Cache =====
+redis
+
+# ===== Security =====
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt
+
+# ===== AI/ML =====
+scikit-learn
+xgboost
+numpy
+pandas
+
+# ===== Utilities =====
+httpx
+python-dateutil
+orjson
+
+# ===== Dev =====
+pytest
+pytest-asyncio
+ruff
