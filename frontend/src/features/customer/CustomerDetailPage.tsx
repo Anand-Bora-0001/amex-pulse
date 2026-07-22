@@ -230,7 +230,20 @@ export default function CustomerDetailPage() {
                     <Phone size={16} className="text-green-500" />
                     <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>Initiate Priority Callback</span>
                   </div>
-                  <p className="text-xs mt-1 italic opacity-80">Bypass IVR routing. Pre-authenticate user before agent connects.</p>
+                  <p className="text-xs mt-1 italic opacity-80 mb-3">Bypass IVR routing. Pre-authenticate user before agent connects.</p>
+                  
+                  <div className="bg-blue-500/10 p-3 rounded-lg border border-blue-500/20">
+                    <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">AI Reasoning</span>
+                    <ul className="text-xs mt-1.5 space-y-1.5" style={{ color: 'var(--text-secondary)' }}>
+                      <li className="flex items-center gap-1.5"><CheckCircle size={12} className="text-blue-400"/> 4 Failed Login Attempts</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle size={12} className="text-blue-400"/> Channel Switching (App → Web)</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle size={12} className="text-blue-400"/> Negative Chat Sentiment</li>
+                    </ul>
+                    <div className="flex justify-between items-center mt-3 pt-2 border-t border-blue-500/20">
+                      <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Confidence Score</span>
+                      <span className="text-xs font-mono font-bold text-green-400">94%</span>
+                    </div>
+                  </div>
                 </div>
               </>
             )}
@@ -241,7 +254,7 @@ export default function CustomerDetailPage() {
         <div className="stat-card">
           <div className="flex items-center gap-2 mb-4">
             <HeartPulse size={18} className="text-pink-500" />
-            <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>Customer Journey DNA</h3>
+            <h3 className="font-semibold" style={{ color: 'var(--text-primary)' }}>Behavioral Journey DNA™</h3>
           </div>
           <p className="text-xs mb-4" style={{ color: 'var(--text-muted)' }}>Unique behavioral fingerprint</p>
           <div className="grid grid-cols-2 gap-3">

@@ -24,8 +24,8 @@ AmEx Pulse AI features a stunning, enterprise-grade user interface designed for 
 The Global Dashboard gives executives an instant pulse on the health of American Express customer journeys. It aggregates the 6-Engine AI Pipeline's outputs into real-time metrics, highlighting active churn risks and system-wide frustration levels.
 ![Executive Dashboard](docs/dashboard.png)
 
-### 2. Customer Profile & Journey DNA
-The 360° Customer Profile is the core of our platform. It replaces generic event logs with a **Customer Journey DNA** fingerprint. Our embedded **AI Copilot** instantly analyzes complex multi-channel failures and provides agents with a natural-language summary and a precise Recommended Next Action.
+### 2. Customer Profile & Behavioral Journey DNA™
+The 360° Customer Profile is the core of our platform. It replaces generic event logs with a **Behavioral Journey DNA™** fingerprint. Our embedded **AI Copilot** instantly analyzes complex multi-channel failures and provides agents with a natural-language summary, a precise Recommended Next Action, and clear explainability (Reasoning & Confidence).
 ![Customer Profile](docs/customer_profile.png)
 
 ### 3. Journey Command Center
@@ -46,9 +46,9 @@ A comprehensive, AI-sorted index of the American Express customer base, allowing
 
 ---
 
-## 💼 Business Value First
+## 💼 Target Business Impact (Prototype Goals)
 
-AmEx Pulse AI is designed to drive massive operational savings and preserve customer loyalty through predictive intervention. Our core target metrics for this prototype are:
+AmEx Pulse AI is designed to drive massive operational savings and preserve customer loyalty through predictive intervention. Our estimated potential impact targets are:
 
 1. 💰 **Support Cost Reduced:** **30% fewer repeat support calls** by identifying the root cause of cross-channel frustration.
 2. ⚡ **Resolution Time Improved:** **25% faster issue resolution** powered by our AI Copilot giving agents the exact context immediately.
@@ -67,13 +67,36 @@ This fragmentation causes silent frustration to build up across disjointed touch
 
 ## 💡 The AmEx Pulse AI Solution
 
-**AmEx Pulse AI** transforms disconnected touchpoints into a **Unified Intelligent Journey Graph**. Instead of merely logging flat events, the platform generates a unique **Journey DNA** for every user and evaluates their real-time activity using a **6-Engine AI Pipeline**.
+**AmEx Pulse AI** transforms disconnected touchpoints into a **Unified Intelligent Journey Graph**. Instead of merely logging flat events, the platform generates a unique **Behavioral Journey DNA™** for every user and evaluates their real-time activity using a **6-Engine AI Pipeline**.
 
 It predicts:
 - **Root Cause of Frustration:** Exactly why the user is struggling.
-- **Next Best Action (NBA):** What the agent or automated system must do right now.
+- **Next Best Action (NBA):** What the agent or automated system must do right now (with full explainability).
 
 All of this intelligence is piped via WebSockets to our premium **Journey Command Center** designed for Support Agents and Managers.
+
+---
+
+## 🚀 Key Innovation: Journey Replay
+
+Instead of forcing agents to read static logs, AmEx Pulse AI features an animated **Journey Replay**. 
+
+With a single click, the dashboard visually animates the customer's experience—showing exactly how they moved from the Mobile App ↓ to the Website ↓ to the Chatbot ↓ to the Call Center. This tells the full story of their friction instantly.
+
+**🎥 Watch the Journey Replay in Action:**
+![AmEx Pulse AI Demo](docs/ui_walkthrough.webp)
+
+---
+
+## 🤔 Why Not Existing Solutions?
+
+| Existing Systems | AmEx Pulse AI |
+| :--- | :--- |
+| Flat Event Logs | **Behavioral Journey Intelligence** |
+| Reactive Support | **Predictive Intervention** |
+| Static Dashboards | **AI Copilot Recommendations** |
+| Manual Investigation | **Automated Root Cause Analysis** |
+| Channel-Siloed Views | **Unified Cross-Channel Graph** |
 
 ---
 
@@ -177,239 +200,7 @@ The React frontend (`src/`) is styled with an exclusive, premium **AmEx Navy & B
 
 ---
 
-## 🛣️ API Endpoints Reference
-
-The backend exposes a highly documented OpenAPI interface (Swagger UI at `/docs`). Below is a detailed breakdown of the request and response schemas.
-
-### Auth Endpoints
-
-#### `POST /api/v1/auth/login`
-Authenticates a user and returns a JWT Bearer token.
-**Request Body:**
-```json
-{
-  "username": "admin@amexpulse.com",
-  "password": "admin123"
-}
-```
-**Response (200 OK):**
-```json
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR...",
-  "token_type": "bearer",
-  "user": {
-    "id": 1,
-    "email": "admin@amexpulse.com",
-    "role": "admin",
-    "full_name": "Admin User"
-  }
-}
-```
-
-#### `GET /api/v1/auth/me`
-Retrieves the current user's profile and RBAC permissions.
-**Response (200 OK):**
-```json
-{
-  "id": 1,
-  "email": "admin@amexpulse.com",
-  "role": "admin",
-  "full_name": "Admin User",
-  "is_active": true
-}
-```
-
-### Customer Endpoints
-
-#### `GET /api/v1/customers`
-Retrieves a paginated list of customers, sortable by churn risk, frustration score, or health.
-**Query Parameters:**
-- `page`: integer (default: 1)
-- `size`: integer (default: 50)
-- `sort_by`: string ("frustration_score", "churn_risk", "health_score")
-- `order`: string ("desc", "asc")
-
-**Response (200 OK):**
-```json
-{
-  "total": 50,
-  "page": 1,
-  "size": 50,
-  "customers": [
-    {
-      "id": 1,
-      "universal_id": "AMX-7B39F",
-      "first_name": "Maria",
-      "last_name": "Garcia",
-      "email": "maria.g@example.com",
-      "phone": "+1-555-0192",
-      "frustration_score": 85.5,
-      "health_score": 42.0,
-      "churn_risk": 0.88,
-      "card_type": "platinum"
-    }
-  ]
-}
-```
-
-#### `GET /api/v1/customers/{id}`
-Retrieves the complete 360-degree profile for a specific customer, including recent predictions.
-
-#### `GET /api/v1/customers/{id}/events`
-Retrieves the stitched timeline of cross-channel events.
-**Response (200 OK):**
-```json
-[
-  {
-    "id": 105,
-    "event_type": "auth_failure",
-    "channel_id": 2,
-    "timestamp": "2026-07-22T08:15:00Z",
-    "metadata": {
-      "error_code": "INVALID_CVV",
-      "device": "iOS"
-    }
-  },
-  {
-    "id": 106,
-    "event_type": "call_initiated",
-    "channel_id": 4,
-    "timestamp": "2026-07-22T08:17:00Z",
-    "metadata": {
-      "wait_time": 120
-    }
-  }
-]
-```
-
-### Journey & Intelligence Endpoints
-
-#### `GET /api/v1/journeys`
-Lists active customer journeys across the platform.
-
-#### `GET /api/v1/journeys/{id}/graph`
-Returns React Flow compatible Nodes & Edges to visualize a journey.
-**Response (200 OK):**
-```json
-{
-  "nodes": [
-    {
-      "id": "node-105",
-      "type": "eventNode",
-      "position": { "x": 0, "y": 0 },
-      "data": { "label": "Login Failed", "channel": "Mobile App", "isFriction": true }
-    }
-  ],
-  "edges": [
-    {
-      "id": "edge-105-106",
-      "source": "node-105",
-      "target": "node-106",
-      "animated": true,
-      "style": { "stroke": "#EF4444" }
-    }
-  ]
-}
-```
-
-#### `POST /api/v1/predictions/simulate`
-Manually trigger the 6-engine AI pipeline for a specific user to generate a new intelligence snapshot.
-
-### WebSockets
-
-#### `ws://localhost:8000/ws`
-Connect to the live event stream. Emits real-time JSON payloads whenever a customer interaction occurs.
-**Message Payload:**
-```json
-{
-  "type": "NEW_EVENT",
-  "data": {
-    "customer_id": 1,
-    "event_type": "page_view",
-    "channel_name": "Web",
-    "frustration_delta": +5
-  }
-}
-```
-
----
-
-## 🗄️ Database Schema (Domain Models)
-
-The system uses SQLAlchemy 2.0 with asynchronous session management. Below are the detailed schema definitions.
-
-### `users` Table
-| Column | Type | Constraints | Description |
-|--------|------|-------------|-------------|
-| `id` | Integer | Primary Key | Auto-incrementing ID |
-| `email` | String | Unique, Not Null | User's email address |
-| `hashed_password` | String | Not Null | Bcrypt hashed password |
-| `full_name` | String | Not Null | User's full name |
-| `role` | String | Not Null | Enum: admin, agent, analyst |
-| `is_active` | Boolean | Default: True | Account status |
-
-### `customers` Table
-| Column | Type | Constraints | Description |
-|--------|------|-------------|-------------|
-| `id` | Integer | Primary Key | Auto-incrementing ID |
-| `universal_id` | String | Unique, Index | Cross-channel unique identifier |
-| `first_name` | String | Not Null | Customer's first name |
-| `last_name` | String | Not Null | Customer's last name |
-| `email` | String | Unique | Contact email |
-| `phone` | String | | Contact phone |
-| `card_type` | String | Not Null | e.g., platinum, gold, green |
-| `health_score` | Float | Default: 100.0| AI-calculated health score (0-100) |
-| `frustration_score` | Float | Default: 0.0| AI-calculated frustration (0-100) |
-| `churn_risk` | Float | Default: 0.0 | AI-calculated churn prob (0-1) |
-
-### `channels` Table
-| Column | Type | Constraints | Description |
-|--------|------|-------------|-------------|
-| `id` | Integer | Primary Key | Auto-incrementing ID |
-| `name` | String | Unique | e.g., Web, Mobile, IVR, Chatbot |
-| `type` | String | | e.g., digital, voice, physical |
-
-### `journeys` Table
-| Column | Type | Constraints | Description |
-|--------|------|-------------|-------------|
-| `id` | Integer | Primary Key | Auto-incrementing ID |
-| `customer_id` | Integer | Foreign Key | References `customers.id` |
-| `status` | String | Not Null | Enum: active, completed, abandoned |
-| `intent` | String | | e.g., "Card Activation" |
-| `start_time` | DateTime| Not Null | Journey start timestamp |
-| `end_time` | DateTime| | Journey end timestamp |
-
-### `events` Table
-| Column | Type | Constraints | Description |
-|--------|------|-------------|-------------|
-| `id` | Integer | Primary Key | Auto-incrementing ID |
-| `journey_id` | Integer | Foreign Key | References `journeys.id` |
-| `channel_id` | Integer | Foreign Key | References `channels.id` |
-| `event_type` | String | Not Null | e.g., "login_failed", "page_view" |
-| `timestamp` | DateTime| Not Null | Event occurrence time |
-| `metadata` | JSONB | | Contextual event data |
-
-### `ai_predictions` Table
-| Column | Type | Constraints | Description |
-|--------|------|-------------|-------------|
-| `id` | Integer | Primary Key | Auto-incrementing ID |
-| `customer_id` | Integer | Foreign Key | References `customers.id` |
-| `prediction_type`| String | Not Null | e.g., "churn", "nba", "intent" |
-| `score` | Float | | Confidence or probability score |
-| `reasoning` | String | | Explainable AI justification |
-| `timestamp` | DateTime| Not Null | When the prediction was made |
-
-### `support_cases` Table
-| Column | Type | Constraints | Description |
-|--------|------|-------------|-------------|
-| `id` | Integer | Primary Key | Auto-incrementing ID |
-| `customer_id` | Integer | Foreign Key | References `customers.id` |
-| `assigned_agent` | Integer | Foreign Key | References `users.id` |
-| `case_number` | String | Unique | e.g., "CASE-12345" |
-| `status` | String | Not Null | Enum: open, pending, resolved |
-| `priority` | String | Not Null | Enum: low, medium, high, critical|
-
----
+See [Technical Architecture & Schema](docs/technical.md) for full REST API and Database details.
 
 ## 📁 Project Directory Structure
 
@@ -479,13 +270,15 @@ amex-pulse/
 
 ---
 
-## 🛡️ Security & Enterprise Readiness
+## 🛡️ Enterprise Security & Privacy
 
-- **Authentication:** Bearer JWT tokens generated securely using PyJWT and Bcrypt hashing algorithms. The system utilizes rotating secrets defined in environment variables.
-- **Authorization:** Strict Role-Based Access Control (RBAC). The application utilizes FastAPI `Depends` to inject current users and verify roles. For instance, only users with the `analyst` or `admin` role can access the comprehensive `Analytics` page, while `agent` roles are restricted to viewing customer profiles and their priority queues.
-- **Data Validation:** Exhaustive input and output validation via `pydantic` v2 models. Every request payload and response dictionary is strictly typed and parsed, preventing NoSQL/SQL injection and ensuring data integrity.
-- **CORS Configuration:** Strictly scoped Cross-Origin Resource Sharing. Only the verified Vite frontend origin `http://localhost:5173` is permitted to make REST or WebSocket calls to the backend.
-- **Clean Architecture:** By separating the Domain layer from the Infrastructure layer, the application can easily migrate from SQLite (used for the demo) to an enterprise PostgreSQL or Oracle database simply by changing the SQLAlchemy connection string, with zero modifications required to the business logic or AI pipeline.
+Since this is a financial services solution, AmEx Pulse AI is built with strict enterprise constraints:
+
+- **PII Masking:** Customer Personally Identifiable Information is decoupled from the raw event stream.
+- **Explainable AI:** All AI Copilot recommendations include transparent reasoning factors and confidence scores to prevent black-box decision making.
+- **Encrypted Data:** Secure hashing (Bcrypt) and encrypted JWT transmission.
+- **Role-Based Access:** Strict RBAC limits agent visibility to only their assigned cases, while analysts access anonymized aggregates.
+- **Clean Architecture:** By separating the Domain layer from Infrastructure, the application can easily migrate to enterprise databases (e.g. Oracle) without touching business logic.
 
 ---
 
