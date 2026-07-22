@@ -15,13 +15,7 @@
 
 <br />
 
-## 🎥 Live Demonstration
 
-Here is an automated recording of the AmEx Pulse platform in action (Dashboard, Customer 360, Journey Explorer, Analytics, Agent View):
-
-![AmEx Pulse Demo](docs/ui_walkthrough.webp)
-
----
 
 ## 🎯 The Problem
 
