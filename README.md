@@ -15,6 +15,13 @@
 
 <br />
 
+## 🎥 Live Demonstration
+
+Here is an automated recording of the AmEx Pulse AI platform in action, featuring our **Key Innovation: Journey Replay**:
+
+![AmEx Pulse AI Demo](docs/ui_walkthrough.webp)
+
+---
 
 ## 🖼️ Key Interfaces
 
