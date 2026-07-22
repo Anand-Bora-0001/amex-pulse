@@ -15,15 +15,6 @@
 
 <br />
 
-> **"Our platform automatically detects where a customer's journey breaks and recommends the exact next action before the customer even contacts support."**
-
-## 🎥 Live Demonstration
-
-Here is an automated recording of the AmEx Pulse AI platform in action (Dashboard, Customers, Journeys, Analytics, Command Center):
-
-![AmEx Pulse AI Demo](docs/ui_walkthrough.webp)
-
----
 
 ## 🖼️ Key Interfaces
 
