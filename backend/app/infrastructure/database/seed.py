@@ -43,10 +43,10 @@ from app.infrastructure.database.models import (
 
 # ── Synthetic Customer Data ──────────────────────────────────────
 CUSTOMER_PROFILES = [
-    {"first_name": "Sarah", "last_name": "Chen", "card_type": "platinum", "member_since": "2018-03-15", "scenario": "frustrated_activation"},
+    {"first_name": "Sarah", "last_name": "Johnson", "card_type": "platinum", "member_since": "2018-03-15", "scenario": "frustrated_activation"},
     {"first_name": "Marcus", "last_name": "Johnson", "card_type": "gold", "member_since": "2020-06-22", "scenario": "happy_rewards"},
     {"first_name": "Priya", "last_name": "Sharma", "card_type": "platinum", "member_since": "2016-11-08", "scenario": "churn_risk"},
-    {"first_name": "David", "last_name": "Williams", "card_type": "green", "member_since": "2022-01-30", "scenario": "dispute_journey"},
+    {"first_name": "David", "last_name": "Miller", "card_type": "green", "member_since": "2022-01-30", "scenario": "dispute_journey"},
     {"first_name": "Emily", "last_name": "Rodriguez", "card_type": "gold", "member_since": "2019-09-14", "scenario": "credit_limit"},
     {"first_name": "James", "last_name": "O'Brien", "card_type": "platinum", "member_since": "2015-04-20", "scenario": "travel_support"},
     {"first_name": "Aisha", "last_name": "Patel", "card_type": "blue", "member_since": "2023-08-05", "scenario": "new_member"},

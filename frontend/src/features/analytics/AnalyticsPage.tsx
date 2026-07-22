@@ -21,6 +21,7 @@ export default function AnalyticsPage() {
   const [heatmap, setHeatmap] = useState<any[]>([]);
   const [journeyType, setJourneyType] = useState('card_activation');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     loadAnalytics();
@@ -36,8 +37,10 @@ export default function AnalyticsPage() {
       setFunnel(funnelRes.data);
       setChannels(channelsRes.data);
       setHeatmap(heatmapRes.data);
+      setError(null);
     } catch (err) {
       console.error('Failed to load analytics:', err);
+      setError('Unable to load analytics data. Please ensure the backend is running.');
     } finally {
       setLoading(false);
     }
@@ -89,7 +92,17 @@ export default function AnalyticsPage() {
 
         {/* Funnel visualization */}
         <div className="mt-6">
-          <ResponsiveContainer width="100%" height={350}>
+          {loading ? (
+            <div className="h-[350px] flex flex-col items-center justify-center space-y-4">
+              <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+              <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Loading funnel analytics...</p>
+            </div>
+          ) : error ? (
+            <div className="h-[350px] flex items-center justify-center text-red-400 bg-red-400/10 rounded-xl border border-red-400/20">
+              <p>{error}</p>
+            </div>
+          ) : (
+            <ResponsiveContainer width="100%" height={350}>
             <BarChart data={funnel} layout="vertical" margin={{ top: 5, right: 30, left: 40, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="var(--border-color)" opacity={0.5} />
               <XAxis type="number" tick={{ fill: 'var(--text-muted)', fontSize: 12 }} />
@@ -125,6 +138,7 @@ export default function AnalyticsPage() {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
+          )}
         </div>
       </div>
 

@@ -15,11 +15,26 @@
 
 <br />
 
-## 🎥 Live Demonstration
+## 🎥 Live Demonstration & Demo Scenario
 
 Here is an automated recording of the AmEx Pulse AI platform in action, featuring our **Key Innovation: Journey Replay**:
 
-![AmEx Pulse AI Demo](docs/ui_walkthrough.webp)
+![AmEx Pulse AI Demo](docs/ui_walkthrough.webp?v=2)
+
+### 🎬 Demo Scenario: The Sarah Johnson Story
+
+**Customer:** Sarah (Platinum Card Holder)
+
+1. **Login Failed:** Sarah attempts to log into the Mobile App.
+2. **Authentication Error:** The system locks her out after multiple attempts.
+3. **Channel Switch:** She switches to the Website and searches the Help center.
+4. **Chatbot Friction:** She opens the Chatbot, but the automated responses fail to resolve her lock.
+5. **Call Center:** Sarah finally calls Support.
+6. **Agent Intervention:** The Agent opens the **Journey Command Center**.
+7. **Journey Replay:** With one click, the agent replays Sarah's last 20 minutes, instantly understanding the cross-channel friction without asking her to repeat herself.
+8. **AI Explainability:** The **AI Copilot** detects high frustration, flags the exact reasons (Failed Auth x5, Switched Channels), and displays a 94% confidence score.
+9. **Next Best Action:** The Copilot recommends a **Priority Callback & Unlock**.
+10. **Resolution:** The agent resolves the issue in 45 seconds, retaining a high-value customer.
 
 ---
 
